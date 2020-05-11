@@ -1,0 +1,81 @@
+<div class = "login-form-container">
+
+    <form #loginForm = "ngForm" ngForm (ngSubmit) = "onFormSubmit(loginForm)">
+
+        <h4> Login here..!! </h4>
+
+        <hr>
+
+        <!-- Username Section -->
+
+        <div class = "form-group">
+
+            <label for = "userName"> Username </label>
+
+            <input
+                type = "email"
+                class = "form-control"
+                id = "userName"
+                name = "userName"
+                ngModel
+                placeholder = "example@domain.com"
+                required
+                pattern = "/^[^\s@]+@[^\s@]+\.[^\s@]+$/">
+
+            <div 
+                *ngIf = "(loginForm.controls.userName.invalid && loginForm.controls.userName.touched) || 
+                         (loginForm.controls.userName.invalid && loginForm.controls.userName.dirty)"
+                class = "error-alert">
+                    <p *ngIf = "loginForm.controls.userName.errors.required"> Email is required </p>
+                    <p *ngIf = "loginForm.controls.userName.errors.pattern"> Invalid Email </p>
+            </div>
+
+
+        </div> 
+
+        <!-- Password Section -->
+
+        <div class = "form-group">
+
+            <label for = "userPassword"> Password </label>
+
+            <input
+                type = "password"
+                class = "form-control"
+                id = "userPassword"
+                name = "userPassword"
+                ngModel
+                placeholder = "Your password"
+                required>
+
+            <div 
+                *ngIf = "(loginForm.controls.userPassword.invalid && loginForm.controls.userPassword.touched) || 
+                         (loginForm.controls.userPassword.invalid && loginForm.controls.userPassword.dirty)"
+                class = "error-alert">
+                    <p *ngIf = "loginForm.controls.userPassword.errors.required"> Password is required </p>
+            </div>
+        </div>
+
+        <button
+            type = "submit"
+            class = "btn btn-success"
+            [disabled] = "loginForm.invalid">
+            Login
+        </button>
+
+    </form>
+
+    <hr *ngIf = "isFormSubmitted">
+
+    <pre *ngIf = "isFormSubmitted"> {{loginForm.value | json}} </pre>
+
+</div>
+
+
+<!--
+    ngModel and name to get form values
+    
+    To enable two way binding - banana in box - [(ngModel)]
+
+    Template variable for rendering error messages or can also accessed via ngForm instance
+-->
